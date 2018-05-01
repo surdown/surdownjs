@@ -28,7 +28,7 @@ export default class SDTrack{
                 duration = duration + Tone.TimeBase((<SDNote>node).duration()).valueOf();
                 node = node.next();
             }
-            isNote && console.log(node.getValue(),triggerValue-t,duration);
+            
             isNote && this._inst.triggerAttackRelease(new Tone.Frequency(this._root_midi+(<SDNote>node).midiOffset(), "midi"),duration,triggerValue);
 
             node = node.next();
