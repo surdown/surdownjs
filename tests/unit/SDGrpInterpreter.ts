@@ -107,13 +107,16 @@ describe('SDGrpInterpreter', () => {
             let intr = new SDInterpreter(str);
             return intr.parse().then((head)=>{
                 let node = head.next();
-                let str  = ""
-                while(node){
-                    str += node.getValue()
-                    node = node.next()
-                }
+               
+                
                 return (new SDGrpInterpreter().parse(head)).then((grpH)=>{
                     let node = grpH;
+                    let str  = ""
+                    while(node){
+                        str += node.getValue()
+                        node = node.next()
+                    }
+                    node = grpH;
                     let duration = [];
                     let tieStatus = [];
                     while(node){
@@ -153,6 +156,41 @@ describe('SDGrpInterpreter', () => {
                     assert.deepEqual(tieStatus,[false,false,true,true]);
 
                     assert.deepEqual(duration,["8n","8n","4n","4n"]);
+                    return
+                })
+                
+            });
+        
+    })
+
+    it(`should parse tie notes  |<गप>--|-गपग|`,(done)=>{
+        let str = "|<सर>गम|-पधनि|"
+            let intr = new SDInterpreter(str);
+            return intr.parse().then((head)=>{
+               
+                return (new SDGrpInterpreter().parse(head)).then((grpH)=>{
+                    let node = grpH;
+                    
+                    let str  = ""
+                    let count =0;
+                    while(node && (node != node.next())){
+                        str += node.getValue()
+                        node = node.next()
+                        count++;
+                    }
+                    assert.equal(str,'|सरगम|मपधन|');
+
+                    let duration = [];
+                    let tieStatus = [];
+                    node = grpH;
+                    while(node){                            
+                        (node instanceof SDNote) && duration.push((<SDNote>node).duration());
+                        (node instanceof SDNote) && tieStatus.push((<SDNote>node).isTieNote());
+                        node = node.next()
+                    }
+                    assert.deepEqual(tieStatus,[false, false, false, false, true, false, false, false]);
+
+                    assert.deepEqual(duration,["8n", "8n", "4n", "4n", "4n", "4n", "4n", "4n"]);
                     return
                 })
                 

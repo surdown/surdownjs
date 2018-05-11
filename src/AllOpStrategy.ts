@@ -77,18 +77,29 @@ import { SDBar } from './SDBar';
            
             
             let p = (opNode.prev())
+            let searchcount = 0;
             while(p && !(p instanceof SDNote)){
                 p = p.prev();
+                searchcount++;
             }
-            let prevNode:SDNote = (<SDNote>p);
-            let nodeCopy = prevNode.clone();
+            
+            let prevNode = (p);
+            
+
+
+            let nodeCopy = (<SDNote>prevNode).clone();
+            prevNode = opNode.prev();
             nodeCopy.setIsTieNote(true);
             prevNode.setNext(nodeCopy);
+            // console.log('prevnode',prevNode);
+            // console.log('prevnode.next()',prevNode.next());
+            // console.log('prevnode.prev()',prevNode.prev());
             nodeCopy.setPrevious(prevNode);
             nodeCopy.setNext(opNode.next())
             opNode.next() && opNode.next().setPrevious(nodeCopy);
             nodeCopy.setDuration("4n")
-            return [prevNode,nodeCopy];
+            // console.log('is selfreferencing',prevNode.next() === prevNode);
+            return searchcount === 0 ? [prevNode,nodeCopy]:[prevNode,nodeCopy];
             
         }
     }

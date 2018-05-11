@@ -19,6 +19,7 @@ class SDGrpInterpreter {
     async parse(head) {
         this._head = head;
         let node = head;
+        let str = "";
         while (node) {
             this.process(node);
             node = node.next();
@@ -54,11 +55,6 @@ class SDGrpInterpreter {
             count++;
         }
         let alteredNodes = this.processNodesForGroup(notes.reverse(), grpCloseNode);
-        // let str = '';
-        // for(let node of alteredNodes){
-        //     str += node.getValue();
-        // }
-        // console.log('symbol:',grpCloseNode.getValue(),'count',this.debugCount[grpCloseNode.getValue()],'stack',str);
         this.addAlteredNotesBackToStack(alteredNodes, grpCloseNode);
     }
     addAlteredNotesBackToStack(alteredNodes, grpCloseNode) {

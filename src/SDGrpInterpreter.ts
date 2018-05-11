@@ -24,6 +24,7 @@ export default class SDGrpInterpreter {
     async parse(head: SDListItemProtocol): Promise<SDListItemProtocol> {
         this._head = head
         let node = head;
+        let str = ""
         while (node) {
             this.process(node);
             node = node.next()
@@ -57,7 +58,7 @@ export default class SDGrpInterpreter {
         return isGroupPair
     }
     private popStack(grpCloseNode: SDListItemProtocol) {
-       
+
         this.debugCount[grpCloseNode.getValue()] = this.debugCount[grpCloseNode.getValue()] === undefined ?  0 : this.debugCount[grpCloseNode.getValue()] +1;
         let count = 0;
         let notes: SDListItemProtocol[] = [];
@@ -68,14 +69,8 @@ export default class SDGrpInterpreter {
             count++
         }
         
-        
-
         let alteredNodes = this.processNodesForGroup(notes.reverse(), grpCloseNode);
-        // let str = '';
-        // for(let node of alteredNodes){
-        //     str += node.getValue();
-        // }
-        // console.log('symbol:',grpCloseNode.getValue(),'count',this.debugCount[grpCloseNode.getValue()],'stack',str);
+        
         this.addAlteredNotesBackToStack(alteredNodes,grpCloseNode);
         
 
