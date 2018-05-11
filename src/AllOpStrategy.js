@@ -41,7 +41,7 @@ class NoteOpStrategy {
             3: '8t',
             4: '16n'
         };
-        let duration = durationMap[nodes.length];
+        let duration = durationMap[nodes.length] || '16n';
         duration && nodes.forEach((node) => {
             node.setDuration(duration);
         });
