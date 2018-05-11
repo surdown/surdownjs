@@ -25,13 +25,15 @@ export default class SDTrack{
             let isNote = node instanceof SDNote
             let duration = isNote ? Tone.TimeBase((<SDNote>node).duration()).valueOf() : 0;
             let triggerValue = isNote ? (t+Tone.TimeBase((<SDNote>node).timeLinePosition().valueOf())) : 0;
-            
-            while((node.next() instanceof SDBar) || (node.next() && (node.next() instanceof SDNote) && (<SDNote>(node.next())).isTieNote())){
-                duration = duration + Tone.TimeBase((<SDNote>node).duration()).valueOf();
+            let tieOriginNode = node;
+            while((node.next() instanceof SDBar) || (node.next() && (node.next() instanceof SDNote) && (<SDNote>(node.next())).isTieNote()){
+                    let shouldAddDuration = !(node.next() instanceof SDBar)
+                    duration = duration + shouldAddDuration ? Tone.TimeBase((<SDNote>node).duration()).valueOf() : 0;
+                
                 node = node.next();
             }
             
-            isNote && this._inst.triggerAttackRelease(new Tone.Frequency(this._root_midi+(<SDNote>node).midiOffset(), "midi"),duration,triggerValue);
+            isNote && this._inst.triggerAttackRelease(new Tone.Frequency(this._root_midi+(<SDNote>tieOriginNode).midiOffset(), "midi"),duration,triggerValue);
 
             node = node.next();
         }
