@@ -58,25 +58,19 @@ class TieNoteOpStrategy {
             throw new Error(`No link to previous node found for TieNoteOpStrategy, found: ${opNode.prev()}`);
         }
         let p = (opNode.prev());
-        let searchcount = 0;
         while (p && !(p instanceof SDNote_1.default)) {
             p = p.prev();
-            searchcount++;
         }
         let prevNode = (p);
         let nodeCopy = prevNode.clone();
         prevNode = opNode.prev();
         nodeCopy.setIsTieNote(true);
         prevNode.setNext(nodeCopy);
-        // console.log('prevnode',prevNode);
-        // console.log('prevnode.next()',prevNode.next());
-        // console.log('prevnode.prev()',prevNode.prev());
         nodeCopy.setPrevious(prevNode);
         nodeCopy.setNext(opNode.next());
         opNode.next() && opNode.next().setPrevious(nodeCopy);
         nodeCopy.setDuration("4n");
-        // console.log('is selfreferencing',prevNode.next() === prevNode);
-        return searchcount === 0 ? [prevNode, nodeCopy] : [prevNode, nodeCopy];
+        return [prevNode, nodeCopy];
     }
 }
 exports.TieNoteOpStrategy = TieNoteOpStrategy;

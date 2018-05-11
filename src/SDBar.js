@@ -22,5 +22,8 @@ class SDBar {
     setPrevious(prev) {
         this.prevPtr = prev;
     }
+    duration() {
+        return "0";
+    }
 }
 exports.SDBar = SDBar;

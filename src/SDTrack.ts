@@ -1,6 +1,7 @@
 import SDTimeLine from './SDTimeLine';
 import ToneFactory from './ToneFactory';
 import SDNote from './SDNote';
+import { SDBar } from './SDBar';
 
 export default class SDTrack{
     private _timeLine:SDTimeLine
@@ -24,7 +25,8 @@ export default class SDTrack{
             let isNote = node instanceof SDNote
             let duration = isNote ? Tone.TimeBase((<SDNote>node).duration()).valueOf() : 0;
             let triggerValue = isNote ? (t+Tone.TimeBase((<SDNote>node).timeLinePosition().valueOf())) : 0;
-            while(node.next() && (node.next() instanceof SDNote) && (<SDNote>(node.next())).isTieNote()){
+            
+            while((node.next() instanceof SDBar) || node.next() && (node.next() instanceof SDNote) && (<SDNote>(node.next())).isTieNote()){
                 duration = duration + Tone.TimeBase((<SDNote>node).duration()).valueOf();
                 node = node.next();
             }

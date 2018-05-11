@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const SDNote_1 = require("./SDNote");
+const SDBar_1 = require("./SDBar");
 class SDTrack {
     constructor(tonejs, timeLine, inst, root_midi) {
         this._timeLine = timeLine;
@@ -17,7 +18,7 @@ class SDTrack {
             let isNote = node instanceof SDNote_1.default;
             let duration = isNote ? Tone.TimeBase(node.duration()).valueOf() : 0;
             let triggerValue = isNote ? (t + Tone.TimeBase(node.timeLinePosition().valueOf())) : 0;
-            while (node.next() && (node.next() instanceof SDNote_1.default) && (node.next()).isTieNote()) {
+            while ((node.next() instanceof SDBar_1.SDBar) || node.next() && (node.next() instanceof SDNote_1.default) && (node.next()).isTieNote()) {
                 duration = duration + Tone.TimeBase(node.duration()).valueOf();
                 node = node.next();
             }

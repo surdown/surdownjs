@@ -17,7 +17,7 @@ export class SDBar implements SDListItemProtocol {
     next():SDListItemProtocol{
         return this.nextPtr;
     }
-
+    
     prev():SDListItemProtocol{
         return this.prevPtr
     }
@@ -29,5 +29,7 @@ export class SDBar implements SDListItemProtocol {
     setPrevious(prev:SDListItemProtocol){
         this.prevPtr = prev;
     }
-    
+    duration():string{
+        return "0";
+    }
 }
