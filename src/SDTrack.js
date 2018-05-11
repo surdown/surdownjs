@@ -21,7 +21,7 @@ class SDTrack {
             let tieOriginNode = node;
             while ((node.next() instanceof SDBar_1.SDBar) || (node.next() && (node.next() instanceof SDNote_1.default) && (node.next()).isTieNote())) {
                 let shouldAddDuration = !(node.next() instanceof SDBar_1.SDBar);
-                duration = duration + shouldAddDuration ? Tone.TimeBase(node.duration()).valueOf() : 0;
+                duration = duration + (shouldAddDuration ? Tone.TimeBase(node.duration()).valueOf() : 0);
                 node = node.next();
             }
             isNote && this._inst.triggerAttackRelease(new Tone.Frequency(this._root_midi + tieOriginNode.midiOffset(), "midi"), duration, triggerValue);

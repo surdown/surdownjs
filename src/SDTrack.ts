@@ -28,7 +28,7 @@ export default class SDTrack{
             let tieOriginNode = node;
             while((node.next() instanceof SDBar) || (node.next() && (node.next() instanceof SDNote) && (<SDNote>(node.next())).isTieNote()){
                     let shouldAddDuration = !(node.next() instanceof SDBar)
-                    duration = duration + shouldAddDuration ? Tone.TimeBase((<SDNote>node).duration()).valueOf() : 0;
+                    duration = duration + (shouldAddDuration ? Tone.TimeBase((<SDNote>node).duration()).valueOf() : 0);
                 
                 node = node.next();
             }
