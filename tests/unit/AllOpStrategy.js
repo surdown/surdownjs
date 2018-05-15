@@ -1,27 +1,27 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var SDInterpreter_1 = require("../../src/SDInterpreter");
-var SDGrpInterpreter_1 = require("../../src/SDGrpInterpreter");
-var SDNote_1 = require("../../src/SDNote");
-var _a = intern.getInterface('bdd'), describe = _a.describe, it = _a.it;
-var assert = intern.getPlugin('chai').assert;
-describe('AllOpStrategy', function () {
-    describe('BarOpStrategy', function () {
-        it("should parse tie notes  properly |\u0917\u092A\u092A\u092A|", function (done) {
-            var str = "|गपपप|";
-            var intr = new SDInterpreter_1.default(str);
-            return intr.parse().then(function (head) {
-                var node = head.next();
-                var str = "";
+const SDInterpreter_1 = require("../../src/SDInterpreter");
+const SDGrpInterpreter_1 = require("../../src/SDGrpInterpreter");
+const SDNote_1 = require("../../src/SDNote");
+const { describe, it } = intern.getInterface('bdd');
+const { assert } = intern.getPlugin('chai');
+describe('AllOpStrategy', () => {
+    describe('BarOpStrategy', () => {
+        it(`should parse tie notes  properly |गपपप|`, (done) => {
+            let str = "|गपपप|";
+            let intr = new SDInterpreter_1.default(str);
+            return intr.parse().then((head) => {
+                let node = head.next();
+                let str = "";
                 while (node) {
                     str += node.getValue();
                     node = node.next();
                 }
-                return (new SDGrpInterpreter_1.default().parse(head)).then(function (grpH) {
-                    var node = grpH;
-                    var duration = [];
-                    var tieStatus = [];
-                    var noteValues = [];
+                return (new SDGrpInterpreter_1.default().parse(head)).then((grpH) => {
+                    let node = grpH;
+                    let duration = [];
+                    let tieStatus = [];
+                    let noteValues = [];
                     while (node) {
                         noteValues.push(node.getValue());
                         (node instanceof SDNote_1.default) && duration.push(node.duration());
@@ -35,21 +35,21 @@ describe('AllOpStrategy', function () {
                 });
             });
         });
-        it("should parse bar notes  properly |\u0917\u092A\u092A\u092A|\u0938\u0930\u0947\u0917\u092E|", function (done) {
-            var str = "|गपपप|सरेगम|";
-            var intr = new SDInterpreter_1.default(str);
-            return intr.parse().then(function (head) {
-                var node = head.next();
-                var str = "";
+        it(`should parse bar notes  properly |गपपप|सरेगम|`, (done) => {
+            let str = "|गपपप|सरेगम|";
+            let intr = new SDInterpreter_1.default(str);
+            return intr.parse().then((head) => {
+                let node = head.next();
+                let str = "";
                 while (node) {
                     str += node.getValue();
                     node = node.next();
                 }
-                return (new SDGrpInterpreter_1.default().parse(head)).then(function (grpH) {
-                    var node = grpH;
-                    var duration = [];
-                    var tieStatus = [];
-                    var noteValues = [];
+                return (new SDGrpInterpreter_1.default().parse(head)).then((grpH) => {
+                    let node = grpH;
+                    let duration = [];
+                    let tieStatus = [];
+                    let noteValues = [];
                     while (node) {
                         noteValues.push(node.getValue());
                         (node instanceof SDNote_1.default) && duration.push(node.duration());
@@ -61,21 +61,21 @@ describe('AllOpStrategy', function () {
                 });
             });
         });
-        it("should parse bar notes properly with a subdivision |\u0917\u092A\u092A\u092A|<\u0938\u0930\u0947>\u0917\u092E\u092E|", function (done) {
-            var str = "|<गप>---|<सरे>गमम|";
-            var intr = new SDInterpreter_1.default(str);
-            return intr.parse().then(function (head) {
-                var node = head.next();
-                var str = "";
+        it(`should parse bar notes properly with a subdivision |गपपप|<सरे>गमम|`, (done) => {
+            let str = "|<गप>---|<सरे>गमम|";
+            let intr = new SDInterpreter_1.default(str);
+            return intr.parse().then((head) => {
+                let node = head.next();
+                let str = "";
                 while (node) {
                     str += node.getValue();
                     node = node.next();
                 }
-                return (new SDGrpInterpreter_1.default().parse(head)).then(function (grpH) {
-                    var node = grpH;
-                    var duration = [];
-                    var tieStatus = [];
-                    var noteValues = [];
+                return (new SDGrpInterpreter_1.default().parse(head)).then((grpH) => {
+                    let node = grpH;
+                    let duration = [];
+                    let tieStatus = [];
+                    let noteValues = [];
                     while (node) {
                         noteValues.push(node.getValue());
                         (node instanceof SDNote_1.default) && duration.push(node.duration());

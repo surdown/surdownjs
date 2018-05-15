@@ -1,30 +1,29 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var SDBar = /** @class */ (function () {
-    function SDBar() {
+class SDBar {
+    constructor() {
         this.nextPtr = this.prevPtr = null;
     }
-    SDBar.prototype.setIndex = function (i) {
+    setIndex(i) {
         this._index = i;
-    };
-    SDBar.prototype.getValue = function () {
+    }
+    getValue() {
         return "|";
-    };
-    SDBar.prototype.next = function () {
+    }
+    next() {
         return this.nextPtr;
-    };
-    SDBar.prototype.prev = function () {
+    }
+    prev() {
         return this.prevPtr;
-    };
-    SDBar.prototype.setNext = function (next) {
+    }
+    setNext(next) {
         this.nextPtr = next;
-    };
-    SDBar.prototype.setPrevious = function (prev) {
+    }
+    setPrevious(prev) {
         this.prevPtr = prev;
-    };
-    SDBar.prototype.duration = function () {
+    }
+    duration() {
         return "0";
-    };
-    return SDBar;
-}());
+    }
+}
 exports.SDBar = SDBar;

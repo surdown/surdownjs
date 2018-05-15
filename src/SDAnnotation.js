@@ -1,25 +1,24 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var SDAnnotation = /** @class */ (function () {
-    function SDAnnotation(str) {
+class SDAnnotation {
+    constructor(str) {
         this._nextPtr = this._prevPtr = null;
         this._value = str;
     }
-    SDAnnotation.prototype.getValue = function () {
+    getValue() {
         return this._value;
-    };
-    SDAnnotation.prototype.next = function () {
+    }
+    next() {
         return this._nextPtr;
-    };
-    SDAnnotation.prototype.prev = function () {
+    }
+    prev() {
         return this._prevPtr;
-    };
-    SDAnnotation.prototype.setNext = function (next) {
+    }
+    setNext(next) {
         this._nextPtr = next;
-    };
-    SDAnnotation.prototype.setPrevious = function (prev) {
+    }
+    setPrevious(prev) {
         this._prevPtr = prev;
-    };
-    return SDAnnotation;
-}());
+    }
+}
 exports.default = SDAnnotation;
