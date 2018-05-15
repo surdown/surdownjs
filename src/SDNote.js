@@ -1,100 +1,101 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const SDSymbols_1 = require("./SDSymbols");
-class SDNote {
-    constructor(str) {
+var SDSymbols_1 = require("./SDSymbols");
+var SDNote = /** @class */ (function () {
+    function SDNote(str) {
         this._octave = 0;
         this._isTie = false;
         this._nextPtr = this._prevPtr = null;
         this._value = str;
         this._originalStr = str;
         this._chars = str.split("");
-        let length = this._chars.length;
-        let lastChar = length ? this._chars[length - 1] : '';
-        !length && (() => {
+        var length = this._chars.length;
+        var lastChar = length ? this._chars[length - 1] : '';
+        !length && (function () {
             throw new Error('Invalid construction of Node,must have atleast one character');
         })();
         this._degree = this.calculateDegree(lastChar);
         this._octave = this.calculateOctave();
         this._midiOffset = this._degree + (12 * this._octave);
     }
-    setIsTieNote(isTie) {
+    SDNote.prototype.setIsTieNote = function (isTie) {
         this._isTie = isTie;
-    }
-    isTieNote() {
+    };
+    SDNote.prototype.isTieNote = function () {
         return this._isTie;
-    }
-    clone() {
-        let n = new SDNote(this._originalStr);
+    };
+    SDNote.prototype.clone = function () {
+        var n = new SDNote(this._originalStr);
         n.setNext(null);
         n.setPrevious(null);
         return n;
-    }
-    toString() {
+    };
+    SDNote.prototype.toString = function () {
         return this.getValue();
-    }
-    setDuration(d) {
+    };
+    SDNote.prototype.setDuration = function (d) {
         this._duration = d;
-    }
-    setTimeLinePosition(time) {
+    };
+    SDNote.prototype.setTimeLinePosition = function (time) {
         this._position = time;
-    }
-    timeLinePosition() {
+    };
+    SDNote.prototype.timeLinePosition = function () {
         return this._position;
-    }
-    duration() {
+    };
+    SDNote.prototype.duration = function () {
         return this._duration;
-    }
-    midiOffset() {
+    };
+    SDNote.prototype.midiOffset = function () {
         return this._midiOffset;
-    }
-    octaveOffset() {
+    };
+    SDNote.prototype.octaveOffset = function () {
         return this._octave;
-    }
-    countCharInStr(str, char) {
+    };
+    SDNote.prototype.countCharInStr = function (str, char) {
         str = str || "";
         char = char || "";
-        let l = str.length;
-        let cnt = 0;
-        for (let i = 0; i < l; i++) {
+        var l = str.length;
+        var cnt = 0;
+        for (var i = 0; i < l; i++) {
             cnt = cnt + (str.charAt(i) === char ? 1 : 0);
         }
         return cnt;
-    }
-    calculateOctave() {
-        let octaveUp = this.countCharInStr(this._value, "*");
-        let octaveDown = -this.countCharInStr(this._value, "/");
+    };
+    SDNote.prototype.calculateOctave = function () {
+        var octaveUp = this.countCharInStr(this._value, "*");
+        var octaveDown = -this.countCharInStr(this._value, "/");
         return octaveUp || octaveDown;
-    }
-    calculateDegree(ch) {
-        let notePosition = SDSymbols_1.default.isNote(ch) && SDSymbols_1.default.calculatScalePosition(ch);
-        let isSharp = this._chars.indexOf("^") >= 0;
-        let isFlat = this._chars.indexOf("_") >= 0;
+    };
+    SDNote.prototype.calculateDegree = function (ch) {
+        var notePosition = SDSymbols_1.default.isNote(ch) && SDSymbols_1.default.calculatScalePosition(ch);
+        var isSharp = this._chars.indexOf("^") >= 0;
+        var isFlat = this._chars.indexOf("_") >= 0;
         notePosition += isSharp ? 1 : 0;
         notePosition -= isFlat ? 1 : 0;
         return notePosition;
-    }
-    degree() {
+    };
+    SDNote.prototype.degree = function () {
         return this._degree;
-    }
-    addMatra(ch) {
+    };
+    SDNote.prototype.addMatra = function (ch) {
         this._value = this._value + ch;
         this._chars = this._value.split("");
-    }
-    getValue() {
+    };
+    SDNote.prototype.getValue = function () {
         return this._value;
-    }
-    next() {
+    };
+    SDNote.prototype.next = function () {
         return this._nextPtr;
-    }
-    prev() {
+    };
+    SDNote.prototype.prev = function () {
         return this._prevPtr;
-    }
-    setNext(next) {
+    };
+    SDNote.prototype.setNext = function (next) {
         this._nextPtr = next;
-    }
-    setPrevious(prev) {
+    };
+    SDNote.prototype.setPrevious = function (prev) {
         this._prevPtr = prev;
-    }
-}
+    };
+    return SDNote;
+}());
 exports.default = SDNote;

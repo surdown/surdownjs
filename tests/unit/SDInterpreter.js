@@ -1,34 +1,34 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const SDInterpreter_1 = require("../../src/SDInterpreter");
-const SDNote_1 = require("../../src/SDNote");
-const { describe, it } = intern.getInterface('bdd');
-const { assert } = intern.getPlugin('chai');
-describe('SDInterPreter', () => {
-    it(`should parse note properly`, () => {
-        let str = "ग";
-        let intr = new SDInterpreter_1.default(str);
-        return intr.parse().then((node) => {
+var SDInterpreter_1 = require("../../src/SDInterpreter");
+var SDNote_1 = require("../../src/SDNote");
+var _a = intern.getInterface('bdd'), describe = _a.describe, it = _a.it;
+var assert = intern.getPlugin('chai').assert;
+describe('SDInterPreter', function () {
+    it("should parse note properly", function () {
+        var str = "ग";
+        var intr = new SDInterpreter_1.default(str);
+        return intr.parse().then(function (node) {
             assert.equal(node.getValue(), "ग");
             assert.ok(node instanceof SDNote_1.default);
             assert.equal(node.degree(), 4);
             return assert.equal(node.next(), null);
         });
     });
-    it(`should parse _ग properly`, (done) => {
-        let str = "_ग";
-        let intr = new SDInterpreter_1.default(str);
-        return intr.parse().then((node) => {
+    it("should parse _\u0917 properly", function (done) {
+        var str = "_ग";
+        var intr = new SDInterpreter_1.default(str);
+        return intr.parse().then(function (node) {
             assert.equal(node.getValue(), "_ग");
             assert.ok(node instanceof SDNote_1.default);
             assert.equal(node.degree(), 3);
             return assert.equal(node.next(), null);
         });
     });
-    it(`should parse __ग_*ग properly`, (done) => {
-        let str = "__ग_*ग";
-        let intr = new SDInterpreter_1.default(str);
-        return intr.parse().then((node) => {
+    it("should parse __\u0917_*\u0917 properly", function (done) {
+        var str = "__ग_*ग";
+        var intr = new SDInterpreter_1.default(str);
+        return intr.parse().then(function (node) {
             assert.equal(node.getValue(), "__ग");
             assert.equal(node.degree(), 3);
             assert.ok(node instanceof SDNote_1.default);
@@ -39,19 +39,19 @@ describe('SDInterPreter', () => {
             assert.equal(node.next(), null);
         });
     });
-    it(`should parse a single note with matra (_*गा)`, (done) => {
-        let str = "_*गा";
-        let intr = new SDInterpreter_1.default(str);
-        return intr.parse().then((node) => {
+    it("should parse a single note with matra (_*\u0917\u093E)", function (done) {
+        var str = "_*गा";
+        var intr = new SDInterpreter_1.default(str);
+        return intr.parse().then(function (node) {
             assert.equal(node.getValue(), "_*गा");
             assert.ok(node instanceof SDNote_1.default);
             assert.equal(node.next(), null);
         });
     });
-    it(`should parse multiple notes with matra (_*रे_*गा)`, (done) => {
-        let str = "_*रे_*गा";
-        let intr = new SDInterpreter_1.default(str);
-        return intr.parse().then((node) => {
+    it("should parse multiple notes with matra (_*\u0930\u0947_*\u0917\u093E)", function (done) {
+        var str = "_*रे_*गा";
+        var intr = new SDInterpreter_1.default(str);
+        return intr.parse().then(function (node) {
             assert.equal(node.getValue(), "_*रे");
             assert.ok(node instanceof SDNote_1.default);
             assert.equal(node.degree(), 1);
@@ -62,10 +62,10 @@ describe('SDInterPreter', () => {
             assert.equal(node.next(), null);
         });
     });
-    it(`should parse noteannotations (__ग_**ग)`, (done) => {
-        let str = "__ग_**ग";
-        let intr = new SDInterpreter_1.default(str);
-        return intr.parse().then((node) => {
+    it("should parse noteannotations (__\u0917_**\u0917)", function (done) {
+        var str = "__ग_**ग";
+        var intr = new SDInterpreter_1.default(str);
+        return intr.parse().then(function (node) {
             assert.equal(node.getValue(), "__ग");
             assert.ok(node instanceof SDNote_1.default);
             node = node.next();
@@ -76,10 +76,10 @@ describe('SDInterPreter', () => {
             assert.equal(node.next(), null);
         });
     });
-    it(`should parse noteannotations (प_//ग) `, (done) => {
-        let str = "प_//ग";
-        let intr = new SDInterpreter_1.default(str);
-        return intr.parse().then((node) => {
+    it("should parse noteannotations (\u092A_//\u0917) ", function (done) {
+        var str = "प_//ग";
+        var intr = new SDInterpreter_1.default(str);
+        return intr.parse().then(function (node) {
             assert.equal(node.getValue(), "प");
             assert.ok(node instanceof SDNote_1.default);
             assert.equal(node.degree(), 7);

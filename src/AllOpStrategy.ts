@@ -84,17 +84,17 @@ import { SDBar } from './SDBar';
             
             let prevNode = (p);
         
-            let nodeCopy = (<SDNote>prevNode).clone();
+            let nodeCopy = p ? (<SDNote>prevNode).clone() : (new SDNote(""));
             prevNode = opNode.prev();
             nodeCopy.setIsTieNote(true);
-            prevNode.setNext(nodeCopy);
+            prevNode && prevNode.setNext(nodeCopy);
             
             nodeCopy.setPrevious(prevNode);
             nodeCopy.setNext(opNode.next())
             opNode.next() && opNode.next().setPrevious(nodeCopy);
             nodeCopy.setDuration("4n")
             
-            return [prevNode,nodeCopy];
+            return p?[prevNode,nodeCopy]:[];
             
         }
     }
