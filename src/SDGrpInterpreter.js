@@ -1,17 +1,19 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const SDAnnotation_1 = require("./SDAnnotation");
-const AllOpStrategy_1 = require("./AllOpStrategy");
 const SDBar_1 = require("./SDBar");
+const NoteOpStrategy_1 = require("./OpStrategy/NoteOpStrategy");
+const BarOpStrategy_1 = require("./OpStrategy/BarOpStrategy");
+const TieNoteStrategy_1 = require("./OpStrategy/TieNoteStrategy");
 class SDGrpInterpreter {
     constructor() {
         this._stack = [];
         this.strategyMap = {};
         this.debugCount = {};
-        this.add(new AllOpStrategy_1.NoteOpStrategy(), ">");
-        this.add(new AllOpStrategy_1.TieNoteOpStrategy(), "-");
-        this.add(new AllOpStrategy_1.BarOpStrategy(), "|");
-        this.add(new AllOpStrategy_1.BarOpStrategy(), "।");
+        this.add(new NoteOpStrategy_1.NoteOpStrategy(), ">");
+        this.add(new TieNoteStrategy_1.TieNoteOpStrategy(), "-");
+        this.add(new BarOpStrategy_1.BarOpStrategy(), "|");
+        this.add(new BarOpStrategy_1.BarOpStrategy(), "।");
     }
     add(strategy, forCh) {
         this.strategyMap[forCh] = strategy;

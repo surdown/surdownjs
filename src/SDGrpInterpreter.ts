@@ -2,9 +2,15 @@ import SDListItemProtocol from './SDListItemProtocol';
 import SDNote from './SDNote';
 import SDAnnotation from './SDAnnotation';
 import SDSymbols from './SDSymbols';
-import { OpStrategy } from './Protocols';
-import { NoteOpStrategy, TieNoteOpStrategy, BarOpStrategy } from './AllOpStrategy';
+
+
 import { SDBar } from './SDBar';
+
+import { NoteOpStrategy } from './OpStrategy/NoteOpStrategy';
+import { BarOpStrategy } from './OpStrategy/BarOpStrategy';
+import { TieNoteOpStrategy } from './OpStrategy/TieNoteStrategy';
+import { OpStrategy } from './OpStrategy/OpStrategyProtocol';
+
 
 export default class SDGrpInterpreter {
 
