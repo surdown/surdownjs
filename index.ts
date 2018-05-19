@@ -1,16 +1,19 @@
-import SDParser from './src/SDParser';
+import SDParser from "./src/SDParser";
 import SDTrack from './src/SDTrack';
 import SDTimeLine from "./src/SDTimeLine";
 import SDListItemProtocol from './src/SDListItemProtocol';
 import SDGrpInterpreter from './src/SDGrpInterpreter';
 import SDInterpreter from './src/SDInterpreter';
 import ToneFactory from "./src/ToneFactory";
-import SDPlayer from 'src/SDPLayer';
+import SDPlayer from './src/SDPLayer';
 
-export {SDPlayer}
-export {SDParser}
-export {SDTrack}
-export {SDTimeLine}
-export {SDGrpInterpreter}
-export {SDInterpreter}
-export {ToneFactory}
+export let Player = SDPlayer;
+export let Parser = SDParser;
+export let Track = SDTrack
+export let TimeLine = SDTimeLine
+export let GrpInterpreter = SDGrpInterpreter
+export let Interpreter = SDInterpreter;
+export let TFactory = ToneFactory
+
+
+
