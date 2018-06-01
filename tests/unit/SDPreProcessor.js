@@ -40,8 +40,8 @@ describe('SDPreProcessor', () => {
             return assert.equal(result.bpm, 60);
         });
     });
-    it(`should parse scale properly ||c3#||सरग|`, () => {
-        let str = "||c3#||सरग|";
+    it(`should parse scale properly ||C3#||सरग|`, () => {
+        let str = "||C3#||सरग|";
         let intr = new SDPreProcessor_1.default();
         return intr.parse(str).then((result) => {
             return assert.equal(result.scale, 61);

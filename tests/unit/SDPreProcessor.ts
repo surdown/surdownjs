@@ -66,9 +66,9 @@ describe('SDPreProcessor', () => {
 
     })
 
-    it(`should parse scale properly ||c3#||सरग|`, () => {
+    it(`should parse scale properly ||C3#||सरग|`, () => {
 
-        let str = "||c3#||सरग|"
+        let str = "||C3#||सरग|"
         let intr = new SDPreProcessor();
         return intr.parse(str).then((result) => {
 

@@ -53,7 +53,7 @@ export default class SDPreProcessor{
         let alter = 0;
         try{
             for(let part of elements){
-                let parsed =  (part.search(/[a-g]([0-9])?(#)?/)) >= 0;
+                let parsed =  (part.search(/[a-g]([0-9])?(#)?/i)) >= 0;
                 alphabet = parsed ? this.extractAlphabet(part) : alphabet;
                 octave = parsed ? this.extractOctave(part) : octave;
                 alter = parsed ? this.extractAlteredNote(part) : alter;
