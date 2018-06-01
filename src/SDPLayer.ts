@@ -2,6 +2,8 @@ import SDInterpreter from './SDInterpreter';
 import SDGrpInterpreter from './SDGrpInterpreter';
 import SDTimeLine from './SDTimeLine';
 import SDTrack from './SDTrack';
+import { SDPreProcessorResult } from './SDPreProcessor';
+import SDPreProcessor from './SDPreProcessor';
 export default class SDPlayer {
     private tonejs: any
     private toneInstrument: any
@@ -12,6 +14,11 @@ export default class SDPlayer {
         this.rootNote = rootNote
     }
     async play(str: string): Promise<any> {
+        let preprocessorResult:SDPreProcessorResult = await new SDPreProcessor().parse(str);
+        str = preprocessorResult.notes;
+        this.tonejs.Transport.bpm.value = preprocessorResult.bpm;
+        this.rootNote=preprocessorResult.scale;
+        
         let head = await new SDInterpreter(str).parse();
         let notes = await new SDGrpInterpreter().parse(head);
         let tl = new SDTimeLine(this.tonejs, "0m")

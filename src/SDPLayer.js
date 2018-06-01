@@ -4,6 +4,7 @@ const SDInterpreter_1 = require("./SDInterpreter");
 const SDGrpInterpreter_1 = require("./SDGrpInterpreter");
 const SDTimeLine_1 = require("./SDTimeLine");
 const SDTrack_1 = require("./SDTrack");
+const SDPreProcessor_1 = require("./SDPreProcessor");
 class SDPlayer {
     constructor(tonejs, toneInstrument, rootNote) {
         this.tonejs = tonejs;
@@ -11,6 +12,10 @@ class SDPlayer {
         this.rootNote = rootNote;
     }
     async play(str) {
+        let preprocessorResult = await new SDPreProcessor_1.default().parse(str);
+        str = preprocessorResult.notes;
+        this.tonejs.Transport.bpm.value = preprocessorResult.bpm;
+        this.rootNote = preprocessorResult.scale;
         let head = await new SDInterpreter_1.default(str).parse();
         let notes = await new SDGrpInterpreter_1.default().parse(head);
         let tl = new SDTimeLine_1.default(this.tonejs, "0m");
