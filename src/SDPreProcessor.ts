@@ -33,7 +33,8 @@ export default class SDPreProcessor{
 
     private extractAlphabet(str:string):string{
         let index = str.search(/[a-g]/);
-        return index >=0 ? str.charAt(index) : 'c';
+        let char =  index >=0 ? str.charAt(index) : 'c';
+        return char.toLowerCase();
     }
     private extractOctave(str:string):number{
         let index = str.search(/[0-9]/);

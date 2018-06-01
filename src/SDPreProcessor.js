@@ -30,7 +30,8 @@ class SDPreProcessor {
     }
     extractAlphabet(str) {
         let index = str.search(/[a-g]/);
-        return index >= 0 ? str.charAt(index) : 'c';
+        let char = index >= 0 ? str.charAt(index) : 'c';
+        return char.toLowerCase();
     }
     extractOctave(str) {
         let index = str.search(/[0-9]/);
