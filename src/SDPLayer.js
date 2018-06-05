@@ -11,11 +11,15 @@ class SDPlayer {
         this.toneInstrument = toneInstrument;
         this.rootNote = rootNote;
     }
+    static set(scale, bpm) {
+        SDPlayer.bpm = bpm;
+        SDPlayer.scale = scale;
+    }
     async play(str) {
         let preprocessorResult = await new SDPreProcessor_1.default().parse(str);
         str = preprocessorResult.notes;
-        this.tonejs.Transport.bpm.value = preprocessorResult.bpm;
-        this.rootNote = preprocessorResult.scale;
+        this.tonejs.Transport.bpm.value = SDPlayer.bpm;
+        this.rootNote = SDPlayer.scale;
         let head = await new SDInterpreter_1.default(str).parse();
         let notes = await new SDGrpInterpreter_1.default().parse(head);
         let tl = new SDTimeLine_1.default(this.tonejs, "0m");
@@ -24,4 +28,6 @@ class SDPlayer {
         track.play();
     }
 }
+SDPlayer.bpm = 60;
+SDPlayer.scale = 61;
 exports.default = SDPlayer;

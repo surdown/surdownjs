@@ -6,6 +6,7 @@ import SDGrpInterpreter from './src/SDGrpInterpreter';
 import SDInterpreter from './src/SDInterpreter';
 import ToneFactory from "./src/ToneFactory";
 import SDPlayer from './src/SDPLayer';
+import SDPreProcessor from "./src/SDPreProcessor"
 
 export let Player = SDPlayer;
 export let Parser = SDParser;
@@ -14,6 +15,6 @@ export let TimeLine = SDTimeLine
 export let GrpInterpreter = SDGrpInterpreter
 export let Interpreter = SDInterpreter;
 export let TFactory = ToneFactory
-
+export let PreProcessor = SDPreProcessor
 
 
