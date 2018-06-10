@@ -15,11 +15,16 @@ class SDPlayer {
         SDPlayer.bpm = bpm;
         SDPlayer.scale = scale;
     }
-    async play(str) {
-        let preprocessorResult = await new SDPreProcessor_1.default().parse(str);
+    async play(str, startPos, endPos) {
+        let preprocessorResult = await new SDPreProcessor_1.default().parse(str, startPos, endPos);
+        SDPlayer.set(preprocessorResult.scale, preprocessorResult.bpm);
+        this.tonejs.Transport.bpm.value = preprocessorResult.bpm;
+        this.rootNote = preprocessorResult.scale;
         str = preprocessorResult.notes;
-        this.tonejs.Transport.bpm.value = SDPlayer.bpm;
-        this.rootNote = SDPlayer.scale;
+        let startsWithBar = str.charAt(0) === '|' || str.charAt(0) === '।';
+        let endsWithBar = str.charAt(str.length - 1) === '|' || str.charAt(str.length - 1) === '।';
+        str = startsWithBar ? str : ('|' + str);
+        str = endsWithBar ? str : (str + '|');
         let head = await new SDInterpreter_1.default(str).parse();
         let notes = await new SDGrpInterpreter_1.default().parse(head);
         let tl = new SDTimeLine_1.default(this.tonejs, "0m");

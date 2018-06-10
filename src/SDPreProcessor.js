@@ -13,7 +13,7 @@ class SDPreProcessor {
             'b': 35
         };
     }
-    async parse(str) {
+    async parse(str, startPos, endPos) {
         let reg = /\|\|/g;
         let match;
         let indeces = [];
@@ -26,7 +26,10 @@ class SDPreProcessor {
         let metaDataString = str.substring(metaDataStringStart, metaDataStringEnd);
         let bpm = await this.extractBPM(metaDataString);
         let scale = await this.extractScale(metaDataString);
-        let noteString = str.substring(noteStringStartIndex);
+        let selectionStart = startPos;
+        let selectionEnd = endPos;
+        let isSelected = (selectionStart !== selectionEnd);
+        let noteString = isSelected && str.length ? str.substring(selectionStart, selectionEnd) : str.substring(noteStringStartIndex);
         noteString = await SDPreProcessor.rom2Devn(noteString);
         return { notes: noteString, scale: scale, bpm: bpm };
     }
