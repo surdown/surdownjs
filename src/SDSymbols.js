@@ -1,6 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 class SDSymbols {
+    static rom2Devn(str) {
+        return SDSymbols.romanToDevNagri[str];
+    }
     static calculatScalePosition(ch) {
         let i = SDSymbols.availableNotes.indexOf(ch);
         i < 0 && (() => {
@@ -34,5 +37,19 @@ SDSymbols.grpSymbolPairs = {
     '>': '<',
     '|': '|',
     '।': '।'
+};
+SDSymbols.romanToDevNagri = {
+    'S': 'स',
+    'r': '_र',
+    'R': 'र',
+    'g': '_ग',
+    'G': 'ग',
+    'm': 'म',
+    'M': '^म',
+    'P': 'प',
+    'd': '_ध',
+    'D': 'ध',
+    'n': '_न',
+    'N': 'न'
 };
 exports.default = SDSymbols;

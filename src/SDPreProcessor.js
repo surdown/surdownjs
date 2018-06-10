@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const SDSymbols_1 = require("./SDSymbols");
 class SDPreProcessor {
     constructor() {
         this.scaleMap = {
@@ -26,7 +27,16 @@ class SDPreProcessor {
         let bpm = await this.extractBPM(metaDataString);
         let scale = await this.extractScale(metaDataString);
         let noteString = str.substring(noteStringStartIndex);
+        noteString = await SDPreProcessor.rom2Devn(noteString);
         return { notes: noteString, scale: scale, bpm: bpm };
+    }
+    static async rom2Devn(str) {
+        let dvn = "";
+        for (let ch of str) {
+            ch = SDSymbols_1.default.rom2Devn(ch) || ch;
+            dvn += ch;
+        }
+        return dvn;
     }
     extractAlphabet(str) {
         let index = str.search(/[a-g]/);

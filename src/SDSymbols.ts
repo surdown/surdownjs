@@ -10,7 +10,24 @@ export default class SDSymbols{
         '।':'।'
     };
 
-  
+    private static romanToDevNagri = {
+        'S':'स',
+        'r':'_र',
+        'R':'र',
+        'g':'_ग',
+        'G':'ग',
+        'm':'म',
+        'M':'^म',
+        'P':'प',
+        'd':'_ध',
+        'D':'ध',
+        'n':'_न',
+        'N':'न'
+    }
+
+    static rom2Devn(str:string):string{
+        return SDSymbols.romanToDevNagri[str];
+    }
   
     static calculatScalePosition(ch:string):number{
         let i = SDSymbols.availableNotes.indexOf(ch);
