@@ -12,7 +12,7 @@ export class NoteOpStrategy implements OpStrategy{
             4:'16n'
         }
         let duration = durationMap[nodes.length] || '16n';
-        duration && nodes.forEach((node)=>{
+        duration && nodes.forEach((node)=>{            
             (<SDNote>node).setDuration(duration)
         })
         

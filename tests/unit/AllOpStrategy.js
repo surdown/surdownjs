@@ -61,16 +61,10 @@ describe('AllOpStrategy', () => {
                 });
             });
         });
-        it(`should parse bar notes properly with a subdivision |गपपप|<सरे>गमम|`, (done) => {
-            let str = "|<गप>---|<सरे>गमम|";
+        let str = "|<गप>---|<सरे>गमम|";
+        it(`should parse bar notes properly with a subdivision ${str}`, (done) => {
             let intr = new SDInterpreter_1.default(str);
             return intr.parse().then((head) => {
-                let node = head.next();
-                let str = "";
-                while (node) {
-                    str += node.getValue();
-                    node = node.next();
-                }
                 return (new SDGrpInterpreter_1.default().parse(head)).then((grpH) => {
                     let node = grpH;
                     let duration = [];

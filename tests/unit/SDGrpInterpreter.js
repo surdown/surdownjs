@@ -85,8 +85,8 @@ describe('SDGrpInterpreter', () => {
             });
         });
     });
-    it(`should parse tie notes  <गप>-`, (done) => {
-        let str = "<गप>-";
+    it(`should parse tie notes  |<गप>-|`, (done) => {
+        let str = "|<गप>-|";
         let intr = new SDInterpreter_1.default(str);
         return intr.parse().then((head) => {
             let node = head.next();
@@ -110,8 +110,8 @@ describe('SDGrpInterpreter', () => {
             });
         });
     });
-    it(`should parse tie notes  <गप>--`, (done) => {
-        let str = "<गप>--";
+    it(`should parse tie notes  |<गप>--|`, (done) => {
+        let str = "|<गप>--|";
         let intr = new SDInterpreter_1.default(str);
         return intr.parse().then((head) => {
             let node = head.next();

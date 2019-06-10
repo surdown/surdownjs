@@ -1,5 +1,7 @@
 {
     "suites": "tests/unit/**/*.js",
+    "serverPort": 9093,
+    "socketPort":9094,
     "tunnelOptions": {
         "drivers": [{
             "name": "chrome",

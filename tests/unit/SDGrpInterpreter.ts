@@ -102,8 +102,8 @@ describe('SDGrpInterpreter', () => {
     })
 
     
-    it(`should parse tie notes  <गप>-`,(done)=>{
-        let str = "<गप>-"
+    it(`should parse tie notes  |<गप>-|`,(done)=>{
+        let str = "|<गप>-|"
             let intr = new SDInterpreter(str);
             return intr.parse().then((head)=>{
                 let node = head.next();
@@ -133,8 +133,8 @@ describe('SDGrpInterpreter', () => {
         
     })
 
-    it(`should parse tie notes  <गप>--`,(done)=>{
-        let str = "<गप>--"
+    it(`should parse tie notes  |<गप>--|`,(done)=>{
+        let str = "|<गप>--|"
             let intr = new SDInterpreter(str);
             return intr.parse().then((head)=>{
                 let node = head.next();

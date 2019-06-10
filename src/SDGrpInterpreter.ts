@@ -10,10 +10,11 @@ import { NoteOpStrategy } from './OpStrategy/NoteOpStrategy';
 import { BarOpStrategy } from './OpStrategy/BarOpStrategy';
 import { TieNoteOpStrategy } from './OpStrategy/TieNoteStrategy';
 import { OpStrategy } from './OpStrategy/OpStrategyProtocol';
+import { VerticalNoteStrategy } from './OpStrategy/VerticalNoteStrategy';
 
 
 export default class SDGrpInterpreter {
-
+    private _annotationStack:SDListItemProtocol[] = [];
     private _head: SDListItemProtocol
     private _stack: SDListItemProtocol[] = []
     private strategyMap: { [key: string]: OpStrategy } = {}
@@ -23,6 +24,7 @@ export default class SDGrpInterpreter {
         this.add(new TieNoteOpStrategy(),"-");
         this.add(new BarOpStrategy(),"|")
         this.add(new BarOpStrategy(),"।")
+        this.add(new VerticalNoteStrategy(),"`")
     }
     add(strategy: OpStrategy, forCh: string) {
         this.strategyMap[forCh] = strategy;
@@ -31,6 +33,7 @@ export default class SDGrpInterpreter {
         this._head = head
         let node = head;
         let str = ""
+        this._annotationStack = [];
         while (node) {
             this.process(node);
             node = node.next()
@@ -44,10 +47,26 @@ export default class SDGrpInterpreter {
 
 
     private process(node: SDListItemProtocol) {
-        
-        let isGrpClosed = (node instanceof SDAnnotation) && this.isGroupCloseSymbol(node.getValue())
+        console.log('operator stack',this._annotationStack.map(i=>i.getValue()).join(' '));
+        let isGrpSymbol = (node instanceof SDAnnotation || node instanceof SDBar);
+        let open = this._annotationStack.length ?  this._annotationStack[this._annotationStack.length -1] : null;
+        isGrpSymbol && this._annotationStack.push(node);
+        let close = isGrpSymbol && this._annotationStack.length ?  this._annotationStack[this._annotationStack.length -1] : null;
+        let isGrpClosed = isGrpSymbol && this.isOperatorClosed(open,close);
+        open && close && console.log('open:',open.getValue(),'close:',close.getValue(),'match:',this.isOperatorClosed(open,close));
+        isGrpClosed && this._annotationStack.pop() ;
+
+
+        isGrpClosed && this.clear_open(close);
         isGrpClosed ? this.popStack(node) : this.push(node);
 
+    }
+    private clear_open(close:SDListItemProtocol){
+
+        this.should_pop_open_symbol(close)  &&  this._annotationStack.pop();
+    }
+    private should_pop_open_symbol(close:SDListItemProtocol):boolean{
+        return close && !(['|','।','-'].includes(close.getValue()));
     }
     private isOperatorClosed(open: SDListItemProtocol, close: SDListItemProtocol): boolean {
 
@@ -58,7 +77,7 @@ export default class SDGrpInterpreter {
             (close.getValue() === '|' && open.getValue() === '।') ||
             (close.getValue() === '।' && open.getValue() === '|') ||
             (close.getValue() === '`' && open.getValue() === '`') ||
-            (close.getValue() === '।' && open.getValue() === '।')
+            (close.getValue() === '।' && open.getValue() === '।') 
         );
 
         return isGroupPair
@@ -96,8 +115,17 @@ export default class SDGrpInterpreter {
     }
 
     private processNodesForGroup(nodes: SDListItemProtocol[], grpNode: SDListItemProtocol): SDListItemProtocol[] {
+        console.log(grpNode.getValue(),nodes.map(i=>i.getValue()).join(','));
         let strtgy = this.strategyMap[grpNode.getValue()]
         nodes = strtgy ? strtgy.process(nodes,grpNode) : nodes;
+        console.log('returned:',grpNode.getValue(),nodes.map(i=>{
+           return i.getValue()
+        }).join(','));
+
+        console.log('returned:',grpNode.getValue(),nodes.map(node=>{
+            return (node instanceof SDNote) && (<SDNote>node).isTieNote() ? 'true' : 'false'
+        }).join(','));
+        
         return nodes;
     }
 
