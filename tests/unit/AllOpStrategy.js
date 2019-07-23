@@ -82,5 +82,28 @@ describe('AllOpStrategy', () => {
                 });
             });
         });
+        it(`should parse vertical notes properly with a subdivision ${str}`, (done) => {
+            str = "|`सरे`|";
+            let intr = new SDInterpreter_1.default(str);
+            return intr.parse().then((head) => {
+                return (new SDGrpInterpreter_1.default().parse(head)).then((grpH) => {
+                    let node = grpH;
+                    let duration = [];
+                    let tieStatus = [];
+                    let noteValues = [];
+                    while (node) {
+                        noteValues.push(node.getValue());
+                        (node instanceof SDNote_1.default) && duration.push(node.duration());
+                        (node instanceof SDNote_1.default) && tieStatus.push(node.isTieNote());
+                        node = node.next();
+                    }
+                    console.log(noteValues.join(''));
+                    console.log(duration);
+                    assert.equal(noteValues.join(''), '|सरे|');
+                    assert.deepEqual(duration, ["4n", "4n"]);
+                    return;
+                });
+            });
+        });
     });
 });

@@ -15,6 +15,8 @@ export default class SDNote implements SDListItemProtocol {
     private _nextPtr:SDListItemProtocol
     private _prevPtr: SDListItemProtocol  
     private _isTie:boolean = false
+    private _isVertical:boolean = false
+    
     constructor(str:string){
         this._nextPtr = this._prevPtr = null;
         this._value = str;
@@ -36,6 +38,12 @@ export default class SDNote implements SDListItemProtocol {
     }
     isTieNote():boolean{
         return this._isTie ;
+    }
+    get isVertical(){
+        return this._isVertical;
+    }
+    set isVertical(vertical:boolean){
+        this._isVertical = vertical;
     }
     clone():SDNote{
         let n = new SDNote(this._originalStr);

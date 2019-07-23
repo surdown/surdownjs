@@ -17,7 +17,8 @@ export class VerticalNoteStrategy implements OpStrategy{
         // })
         
          nodes.forEach((node)=>{
-            // console.log('VerticalNoteStrategy',node.getValue());
+            (<SDNote>node).isVertical = true;
+            console.log('VerticalNoteStrategy',node.getValue());
         });
         return nodes;
     }

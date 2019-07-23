@@ -94,10 +94,10 @@ class SDGrpInterpreter {
         console.log(grpNode.getValue(), nodes.map(i => i.getValue()).join(','));
         let strtgy = this.strategyMap[grpNode.getValue()];
         nodes = strtgy ? strtgy.process(nodes, grpNode) : nodes;
-        console.log('returned:', grpNode.getValue(), nodes.map(i => {
+        console.log('returned for ', grpNode.getValue(), '       ', nodes.map(i => {
             return i.getValue();
         }).join(','));
-        console.log('returned:', grpNode.getValue(), nodes.map(node => {
+        console.log('returned for ', grpNode.getValue(), '       ', nodes.map(node => {
             return (node instanceof SDNote_1.default) && node.isTieNote() ? 'true' : 'false';
         }).join(','));
         return nodes;

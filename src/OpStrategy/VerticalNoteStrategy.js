@@ -13,7 +13,8 @@ class VerticalNoteStrategy {
         //     (<SDNote>node).setDuration(duration)
         // })
         nodes.forEach((node) => {
-            // console.log('VerticalNoteStrategy',node.getValue());
+            node.isVertical = true;
+            console.log('VerticalNoteStrategy', node.getValue());
         });
         return nodes;
     }

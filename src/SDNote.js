@@ -5,6 +5,7 @@ class SDNote {
     constructor(str) {
         this._octave = 0;
         this._isTie = false;
+        this._isVertical = false;
         this._nextPtr = this._prevPtr = null;
         this._value = str;
         this._originalStr = str;
@@ -23,6 +24,12 @@ class SDNote {
     }
     isTieNote() {
         return this._isTie;
+    }
+    get isVertical() {
+        return this._isVertical;
+    }
+    set isVertical(vertical) {
+        this._isVertical = vertical;
     }
     clone() {
         let n = new SDNote(this._originalStr);
